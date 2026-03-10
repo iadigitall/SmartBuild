@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartBuild - Gestão de Obras</title>
+    <style>
+        /* Configurações Globais */
+        :root {
+            --primary: #f97316; /* Laranja Construção */
+            --primary-dark: #ea580c;
+            --secondary: #0f172a; /* Azul Escuro Slate */
+            --bg-body: #f8fafc;
+            --text-main: #334155;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+            --footer-bg: #1e293b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.7;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            scroll-behavior: smooth;
+        }
+
+        /* Cabeçalho de Impacto */
+        header.hero {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header.hero::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--primary);
+        }
+
+        header.hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+        }
+
+        header.hero p {
+            font-size: 1.1rem;
+            color: #94a3b8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Menu de Navegação */
+        nav {
+            background-color: #111827;
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav ul li a {
+            display: block;
+            color: #f1f5f9;
+            text-decoration: none;
+            padding: 18px 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Layout de Conteúdo */
+        .main-content {
+            max-width: 1050px;
+            margin: 40px auto;
+            padding: 0 25px;
+        }
+
+        /* Cartões de Seção */
+        section {
+            background: var(--card-bg);
+            margin-bottom: 40px;
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.04);
+            position: relative;
+        }
+
+        section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: var(--primary);
+            border-radius: 12px 12px 0 0;
+        }
+
+        h2 {
+            color: var(--secondary);
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+        }
+
+        h2::before {
+            content: "🏗️";
+            margin-right: 12px;
+            font-size: 1.2rem;
+        }
+
+        h3 {
+            color: var(--primary-dark);
+            font-size: 1.1rem;
+            margin: 25px 0 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            text-align: justify;
+            color: #475569;
+        }
+
+        ul {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 12px;
+            padding-left: 28px;
+            position: relative;
+        }
+
+        li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .highlight-box {
+            background: #fff7ed;
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 15px;
+        }
+
+        .info-tag {
+            display: inline-block;
+            background: #f1f5f9;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+
+        /* Rodapé Profissional */
+        footer {
+            background-color: var(--footer-bg);
+            color: #94a3b8;
+            padding: 50px 20px;
+            text-align: center;
+            border-top: 5px solid var(--primary);
+        }
+
+        footer .footer-logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        footer .team-list {
+            margin: 15px 0;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        footer .divider {
+            width: 50px;
+            height: 2px;
+            background: var(--primary);
+            margin: 20px auto;
+        }
+
+        footer p {
+            text-align: center;
+            font-size: 0.8rem;
+            margin-bottom: 0;
+        }
+
+        /* Responsividade */
+        @media (max-width: 850px) {
+            nav ul {
+                flex-direction: column;
+            }
+            nav ul li {
+                border-bottom: 1px solid #334155;
+                width: 100%;
+            }
+            nav ul li a {
+                padding: 12px;
+            }
+            header.hero h1 {
+                font-size: 2rem;
+            }
+            section {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero" id="inicio">
+        <h1>SmartBuild</h1>
+        <p>A tecnologia certa para o controle total da sua construção.</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="#problema">Problema</a></li>
+            <li><a href="#equipe">Equipe</a></li>
+            <li><a href="#scrum">SCRUM</a></li>
+            <li><a href="#backlog">Backlog</a></li>
+            <li><a href="#sprint">Sprint 1</a></li>
+            <li><a href="#review">Review</a></li>
+            <li><a href="#retrospective">Retrospective</a></li>
+        </ul>
+    </nav>
+
+    <div class="main-content">
+        
+        <!-- Sobre o Projeto -->
+        <section id="sobre">
+            <h2>Sobre o Projeto</h2>
+            <p>O <strong>SmartBuild</strong> é um sistema desenvolvido para centralizar o planejamento e controle de obras e reformas. A proposta utiliza a tecnologia para facilitar a organização de informações críticas durante o processo construtivo.</p>
+            <p>A plataforma permite o registro de dados da obra, acompanhamento de gastos com materiais e uma visão analítica do progresso físico e financeiro, evitando desperdícios e perda de controle orçamentário.</p>
+        </section>
+
+        <!-- Descrição do Problema -->
+        <section id="problema">
+            <h2>Descrição do Problema</h2>
+            <p>A falta de organização em obras residenciais gera atrasos recorrentes e custos imprevistos. Informações espalhadas em anotações físicas ou planilhas complexas dificultam o acompanhamento real do que já foi executado.</p>
+            <p>O SmartBuild atua como uma solução centralizadora, transformando dados desorganizados em informações úteis para a tomada de decisão, garantindo que o custo final esteja alinhado ao planejamento inicial.</p>
+        </section>
+
+        <!-- Equipe do Projeto -->
+        <section id="equipe">
+            <h2>Equipe do Projeto</h2>
+            <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                <div style="flex: 1; min-width: 250px;">
+                    <span class="info-tag">Product Owner</span>
+                    <p><strong>Gustavo Henrique</strong></p>
+                    <span class="info-tag">SCRUM Master</span>
+                    <p><strong>Vitória</strong></p>
+                </div>
+                <div style="flex: 1; min-width: 250px;">
+                    <span class="info-tag">Time de Desenvolvimento</span>
+                    <ul>
+                        <li>Gustavo Henrique</li>
+                        <li>Vitória</li>
+                        <li>Allan</li>
+                        <li>Matheus</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Aplicação do SCRUM -->
+        <section id="scrum">
+            <h2>Aplicação do SCRUM no Projeto</h2>
+            <p>Utilizamos o framework SCRUM para organizar o desenvolvimento em ciclos incrementais, garantindo agilidade e alinhamento entre os membros da equipe durante toda a execução.</p>
+            <ul>
+                <li>Definição do Product Backlog</li>
+                <li>Planejamento de Sprints Semanais</li>
+                <li>Alinhamentos Diários de Progresso</li>
+                <li>Revisão e Retrospectiva de Ciclo</li>
+            </ul>
+        </section>
+
+        <!-- Product Backlog -->
+        <section id="backlog">
+            <h2>Product Backlog</h2>
+            <p>Funcionalidades prioritárias mapeadas para a solução:</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px;">
+                <ul>
+                    <li>Cadastro de usuário</li>
+                    <li>Login e Autenticação</li>
+                    <li>Cadastro de obra</li>
+                    <li>Registro de materiais</li>
+                </ul>
+                <ul>
+                    <li>Controle de custos</li>
+                    <li>Acompanhamento de etapas</li>
+                    <li>Visualização de gastos</li>
+                    <li>Consulta de informações</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Sprint 1 -->
+        <section id="sprint">
+            <h2>Sprint 1</h2>
+            <div class="highlight-box">
+                <p><strong>Objetivo:</strong> Implementar a base de acesso ao sistema, permitindo a criação de contas e autenticação de usuários.</p>
+            </div>
+            
+            <h3>Histórias Selecionadas</h3>
+            <ul>
+                <li>Cadastro de usuário</li>
+                <li>Login no sistema</li>
+            </ul>
+
+            <div style="margin-top: 30px; border-top: 1px dashed var(--border); padding-top: 20px;">
+                <h3>SCRUM Daily</h3>
+                <p><strong>Daily 1:</strong> Organização das funcionalidades e início da estrutura básica do projeto. Foco nas telas de interface.</p>
+                <p><strong>Daily 2:</strong> Finalização das telas de acesso e validação dos dados de entrada. Ajustes de fluxo concluídos.</p>
+            </div>
+        </section>
+
+        <!-- Sprint Review -->
+        <section id="review">
+            <h2>Sprint Review</h2>
+            <p>As funcionalidades de cadastro e acesso foram demonstradas. O incremento da Sprint cumpre os critérios de aceitação definidos inicialmente.</p>
+            <ul>
+                <li>Fluxo de cadastro validado</li>
+                <li>Acesso ao sistema verificado</li>
+                <li>Testes de usabilidade nas telas iniciais</li>
+            </ul>
+        </section>
+
+        <!-- Sprint Retrospective -->
+        <section id="retrospective">
+            <h2>Sprint Retrospective</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                <div>
+                    <h3>Pontos Positivos</h3>
+                    <ul>
+                        <li>Boa comunicação interna</li>
+                        <li>Divisão equilibrada de tarefas</li>
+                        <li>Foco na entrega do objetivo</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Pontos a Melhorar</h3>
+                    <p>Refinar o planejamento das tarefas técnicas antes de iniciar a codificação para reduzir impedimentos durante o desenvolvimento.</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <div class="footer-logo">SmartBuild</div>
+        <p>Sistema de Gerenciamento e Controle de Obras</p>
+        <div class="divider"></div>
+        <div class="team-list">
+            Desenvolvido por: Gustavo Henrique, Vitória, Allan e Matheus
+        </div>
+    </footer>
+
+</body>
+</html>
