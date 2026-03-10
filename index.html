@@ -85,6 +85,10 @@
             margin: 0 auto;
         }
 
+        nav ul li {
+            margin: 0; /* Removido margin extra que poderia interferir */
+        }
+
         nav ul li a {
             display: block;
             color: #f1f5f9;
@@ -163,13 +167,14 @@
             margin-bottom: 20px;
         }
 
-        li {
+        /* Estilo para listas dentro das seções (com checkmark) */
+        section li {
             margin-bottom: 12px;
             padding-left: 28px;
             position: relative;
         }
 
-        li::before {
+        section li::before {
             content: "✓";
             position: absolute;
             left: 0;
